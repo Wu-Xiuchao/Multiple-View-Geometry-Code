@@ -22,13 +22,20 @@ def basic_dlt(point_list1,point_list2):
 		else:
 			A = np.vstack([A,Ai])
 
-	u,s,vt = np.linalg.svd(A,full_matrices=0,compute_uv=1) # 这里 s 从大到小排列
+	u,s,vt = np.linalg.svd(A,full_matrices=1,compute_uv=1) # 这里 s 从大到小排列
+
 	h = vt[-1].reshape((3,3))
 	
 	return h
 
-
-def normilized_dlt(point_list1,point_list2,debug=False):
+"""Normilized DLT algorithm
+para:
+	point_list1: [X1,X2,X3,X4,...Xn] (point_list1 * H = point_list2)
+	for each X: [x1,y1,w1]
+return:
+	homography
+"""
+def normilized_dlt(point_list1,point_list2):
 
 	def normilize(data):
 		s = math.sqrt(2) * (1/np.mean(np.linalg.norm(data[:,:2]-np.mean(data[:,:2],axis=0),axis=1)))
@@ -41,18 +48,7 @@ def normilized_dlt(point_list1,point_list2,debug=False):
 		return data,T
 
 	point_list1,T = normilize(point_list1)
-	if debug is True:
-		print('T:',T)
-		print('centroid:',np.mean(point_list1,axis=0))
-		print('mean_distance:',np.mean(np.linalg.norm(point_list1[:,:2],axis=1)))
-		print(point_list1)
-
 	point_list2,T_ = normilize(point_list2)
-	if debug is True:
-		print('T\':',T_)
-		print('centroid:',np.mean(point_list2,axis=0))
-		print('mean_distance:',np.mean(np.linalg.norm(point_list2[:,:2],axis=1)))
-		print(point_list2)
 
 	tilde_h = basic_dlt(point_list1,point_list2)
 
