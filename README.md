@@ -25,7 +25,7 @@ normilized_dlt(point_list1,point_list2)
 
 ## Affine Rectification
 
-Transform the vanishing line to its canonical form ![](http://latex.codecogs.com/gif.latex?\(0,0,1)^T)
+Transform the vanishing line to its canonical form ![](http://latex.codecogs.com/gif.latex?\\(0,0,1)^T)
 
 ```python
 from algorithm import affine_rectification
