@@ -52,7 +52,7 @@ def normilized_dlt(point_list1,point_list2):
 
 	tilde_h = basic_dlt(point_list1,point_list2)
 
-	h = np.matmul(np.matmul(np.linalg.pinv(T_),tilde_h),T)
+	h = np.matmul(np.matmul(np.linalg.inv(T_),tilde_h),T)
 
 	return h
 
